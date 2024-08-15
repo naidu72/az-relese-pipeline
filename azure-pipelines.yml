@@ -6,6 +6,12 @@
 trigger:
 - main
 
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '6a8843fd-7313-48e2-9381-3f9ef59ce82d'
+  imageRepository: 'app1/app1nginx'
+  containerRegistry: 'aksdevopsacr.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
 pool:
   vmImage: ubuntu-latest
 
@@ -18,7 +24,7 @@ steps:
     containerRegistry: 'acr-naidu'
     repository: 'release-version'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: $(dockerfilePath)
     displayName: "bulild and push docker image to ACR" 
 - task: CmdLine@2
   inputs:
