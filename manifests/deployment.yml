@@ -1,19 +1,25 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ntest 
+  name: myapp
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ntest
+      app: myapp
   template:
     metadata:
       labels:
-        app: ntest 
+        app: myapp
     spec:
       containers:
-        - name: ntest 
-          image: naiduregsistor.azurecr.io/ntest
-          ports:
-          - containerPort: 8080
+      - name: myapp-container
+        image: $(containerRegistry)/$(imageRepository):$(tag)
+        ports:
+        - containerPort: 8080
+        env:
+        - name: BUILD_NUMBER
+          value: "$(BUILD_NUMBER)"
+        - name: ENVIRONMENT_NAME
+          value: "$(ENVIRONMENT_NAME)"
