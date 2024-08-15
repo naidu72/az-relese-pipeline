@@ -13,7 +13,7 @@ variables:
   containerRegistry: 'aksdevopsacr.azurecr.io'
   # dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
 pool:
-  vmImage: ubuntu-24.04
+  vmImage: ubuntu-20.04
 
 resources:
 - repo: self
