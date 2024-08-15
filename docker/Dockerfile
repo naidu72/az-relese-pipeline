@@ -1,6 +1,6 @@
 # Use the Node.js base image
-FROM node:14
-
+#FROM node:14
+FROM naiduregsistor.azurecr.io/release-version:v1
 # Set the working directory
 WORKDIR /app
 
