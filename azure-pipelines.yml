@@ -12,6 +12,7 @@ variables:
   imageRepository: 'app1/app1nginx'
   containerRegistry: 'aksdevopsacr.azurecr.io'
   # dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  system.debug: true
 pool:
   vmImage: ubuntu-20.04
 
@@ -26,6 +27,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     buildContext: 'docker'
+    addPipelineData: true
 # - task: Docker@2
 #   inputs:
 #     containerRegistry: 'acr-naidu'
