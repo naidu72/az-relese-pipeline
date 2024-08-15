@@ -11,7 +11,7 @@ variables:
   dockerRegistryServiceConnection: '6a8843fd-7313-48e2-9381-3f9ef59ce82d'
   imageRepository: 'app1/app1nginx'
   containerRegistry: 'aksdevopsacr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  # dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
 pool:
   vmImage: ubuntu-latest
 
@@ -22,10 +22,16 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'acr-naidu'
-    repository: 'release-version'
     command: 'buildAndPush'
-    Dockerfile: $(dockerfilePath)
-    displayName: "bulild and push docker image to ACR" 
+    Dockerfile: '**/Dockerfile'
+    buildContext: 'docker'
+# - task: Docker@2
+#   inputs:
+#     containerRegistry: 'acr-naidu'
+#     repository: 'release-version'
+#     command: 'buildAndPush'
+#     Dockerfile: '$(dockerfilePath)'
+#     buildContext: 'docker'
 - task: CmdLine@2
   inputs:
     script: 'echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)'
