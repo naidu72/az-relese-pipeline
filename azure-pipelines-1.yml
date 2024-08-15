@@ -1,7 +1,3 @@
-# Deploy to Azure Kubernetes Service
-# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
@@ -9,8 +5,6 @@ resources:
 - repo: self
 
 variables:
-
-  # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '0e4b6d7e-7d2a-4800-acc4-eeba2495f737'
   imageRepository: 'ntest'
   containerRegistry: 'naiduregsistor.azurecr.io'
@@ -18,10 +12,8 @@ variables:
   tag: '$(Build.BuildId)'
   imagePullSecret: 'naiduregsistor42f5-auth'
   BUILD_NUMBER: $(Build.BuildId)
-
-  # Agent VM image name
+  ENVIRONMENT_NAME: 'DEV' # This should be set dynamically for different environments
   vmImageName: 'ubuntu-latest'
-
 
 stages:
 - stage: Build
@@ -48,7 +40,6 @@ stages:
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
-
   jobs:
   - deployment: Deploy
     displayName: Deploy
@@ -59,22 +50,11 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-
-          - task: KubernetesManifest@0
+          - task: AzureCLI@2
             displayName: Deploy to Kubernetes cluster
             inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-
+              azureSubscription: 'az-sp-connection'
+              scriptType: 'bash'
+              scriptLocation: 'scriptPath'
+              scriptPath: 'deploy.sh'
+              arguments: '--build-number $(BUILD_NUMBER) --environment-name $(ENVIRONMENT_NAME)'
