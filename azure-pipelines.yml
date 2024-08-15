@@ -17,3 +17,6 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     displayName: "bulild and push docker image to ACR" 
+- task: CmdLine@2
+  inputs:
+    script: 'echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)'
