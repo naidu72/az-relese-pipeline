@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: ntest
+    name: myapp
 spec:
     type: ClusterIP
     ports:
     - port: 8080 
     selector:
-        app: ntest
+        app: myapp
