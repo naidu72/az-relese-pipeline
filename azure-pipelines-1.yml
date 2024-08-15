@@ -17,6 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'naiduregsistor42f5-auth'
+  BUILD_NUMBER: $(Build.BuildId)
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
