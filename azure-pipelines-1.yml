@@ -56,5 +56,5 @@ stages:
               azureSubscription: 'az-sp-connection'
               scriptType: 'bash'
               scriptLocation: 'scriptPath'
-              scriptPath: 'deploy.sh'
+              scriptPath: '$(Build.SourcesDirectory)/deploy.sh'
               arguments: '--build-number $(BUILD_NUMBER) --environment-name $(ENVIRONMENT_NAME)'
