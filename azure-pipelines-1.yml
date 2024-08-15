@@ -66,5 +66,5 @@ stages:
                 NAMESPACE="default"
                 
                 # Update Kubernetes deployment with environment variables
-                kubectl set env deployment/myapp-container -n $NAMESPACE BUILD_NUMBER=$BUILD_NUMBER ENVIRONMENT_NAME=$ENVIRONMENT_NAME
+                kubectl set env deployment/ntest -n $NAMESPACE BUILD_NUMBER=$BUILD_NUMBER ENVIRONMENT_NAME=$ENVIRONMENT_NAME
               arguments: '--build-number $(BUILD_NUMBER) --environment-name $(ENVIRONMENT_NAME)'
