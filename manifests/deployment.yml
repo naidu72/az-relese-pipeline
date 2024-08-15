@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ntest 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ntest
+  template:
+    metadata:
+      labels:
+        app: ntest 
+    spec:
+      containers:
+        - name: ntest 
+          image: naiduregsistor.azurecr.io/ntest
+          ports:
+          - containerPort: 8080
