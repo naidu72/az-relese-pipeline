@@ -17,3 +17,6 @@ spec:
           image: naiduregsistor.azurecr.io/myapp
           ports:
           - containerPort: 8080
+          env:
+            - name: BUILD_NUMBER
+              value: "$(BUILD_NUMBER)"
