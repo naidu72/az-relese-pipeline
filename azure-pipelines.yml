@@ -2,8 +2,8 @@
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger:
-- main
+# trigger:
+# - main
 
 resources:
 - repo: self
@@ -78,4 +78,8 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: 'echo ''$(BUILD_NUMBER)'''
 
