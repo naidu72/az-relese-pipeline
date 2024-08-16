@@ -55,7 +55,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'naidu72azrelesepipeline-2278.default'
+    environment: 'Testing'
     strategy:
       runOnce:
         deploy:
