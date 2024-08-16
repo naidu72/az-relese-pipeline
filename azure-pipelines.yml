@@ -73,6 +73,7 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: 'deploy'
+              kubernetesServiceConnection: 'Testing-k8s-dev3-1723767439578'
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
